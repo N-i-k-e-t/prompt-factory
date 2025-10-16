@@ -1,391 +1,547 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prompt Factory — Sample Prompts Gallery</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#0b132b; --panel:#111a33; --card:#121c3a; --muted:#b7c2e1;
-      --text:#eef3ff; --accent:#00e5ff; --accent2:#8b8cff; --ok:#1be492;
-      --chip:#1a264d; --shadow:0 12px 30px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.2);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; background:radial-gradient(1200px 600px at 80% -20%, rgba(0,229,255,.18), transparent),
-                 radial-gradient(1000px 500px at -10% 0%, rgba(139,140,255,.18), transparent),
-                 var(--bg);
-      color:var(--text); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
-      line-height:1.5;
-    }
-    header{
-      position:sticky; top:0; z-index:10; backdrop-filter:saturate(140%) blur(8px);
-      background:rgba(11,19,43,.6); border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .container{max-width:1200px; margin:0 auto; padding:16px 20px}
-    .nav{display:flex; align-items:center; justify-content:space-between}
-    .brand{display:flex; gap:10px; align-items:center}
-    .logo{
-      width:36px;height:36px; border-radius:12px; background:
-        radial-gradient(60% 60% at 30% 30%, var(--accent) 0%, transparent 60%),
-        radial-gradient(60% 60% at 70% 70%, var(--accent2) 0%, transparent 60%),
-        linear-gradient(135deg, #0cf, #83f);
-      box-shadow:0 0 30px rgba(0,229,255,.3), inset 0 0 20px rgba(0,0,0,.4);
-    }
-    .title{font-family:Montserrat, Inter; font-weight:800; letter-spacing:.3px}
-    .pill{
-      font-size:12px; padding:6px 10px; border-radius:999px; background:var(--chip); color:var(--muted); border:1px solid rgba(255,255,255,.06)
-    }
-    .hero{
-      padding:32px 20px 12px; text-align:center;
-    }
-    .hero h1{font-family:Montserrat; font-weight:800; margin:6px 0 8px; font-size: clamp(28px, 5vw, 44px);}
-    .hero p{margin:0 auto; max-width:880px; color:var(--muted)}
-    .grid{
-      display:grid; gap:18px; padding:24px 20px 64px;
-      grid-template-columns: repeat(1, minmax(0,1fr));
-    }
-    @media (min-width:640px){ .grid{grid-template-columns: repeat(2, minmax(0,1fr));} }
-    @media (min-width:960px){ .grid{grid-template-columns: repeat(3, minmax(0,1fr));} }
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); position:relative; overflow:hidden;
-    }
-    .card:before{
-      content:""; position:absolute; inset:-1px; border-radius:inherit;
-      background:linear-gradient(135deg, rgba(0,229,255,.16), rgba(139,140,255,.12) 60%, transparent 100%);
-      mask:linear-gradient(#000,#000) padding-box, linear-gradient(#000,#000);
-      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
-    }
-    .card h3{font-family:Montserrat; margin:.2rem 0 .3rem; font-size:1.05rem}
-    .meta{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px}
-    .badge{font-size:12px; padding:4px 8px; border-radius:10px; background:var(--chip); color:var(--muted); border:1px solid rgba(255,255,255,.06)}
-    .badge.ac{background:rgba(0,229,255,.12); color:#aef7ff; border-color:rgba(0,229,255,.25)}
-    .desc{color:#d7def7; font-size:.95rem; margin:.25rem 0 .6rem}
-    details{
-      background:#0f1834; border:1px solid rgba(255,255,255,.08);
-      border-radius:14px; padding:10px 12px;
-    }
-    summary{cursor:pointer; list-style:none; outline:none}
-    summary::-webkit-details-marker{display:none}
-    summary{display:flex; align-items:center; gap:8px; color:#dbe6ff; font-weight:600}
-    summary .dot{width:8px; height:8px; border-radius:50%; background:var(--accent)}
-    pre{
-      margin:10px 0 0; padding:12px; background:#0b1430; border-radius:10px;
-      overflow:auto; white-space:pre-wrap; word-wrap:break-word; color:#eaf2ff; font-size:.92rem;
-      border:1px dashed rgba(255,255,255,.08)
-    }
-    footer{padding:32px 20px; text-align:center; color:var(--muted); border-top:1px solid rgba(255,255,255,.06)}
-    .bar{
-      display:flex; gap:8px; flex-wrap:wrap; justify-content:center; padding:12px 0 4px
-    }
-    .tag{font-size:11.5px; padding:5px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.08); color:#cfe4ff; background:#0f1a37}
-    .ok{color:var(--ok)}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prompt Factory — 200 Best Multi-Sector Prompts</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b1a;
+    --bg2:#0b132b;
+    --panel:#0f1c3f;
+    --card:#101a44;
+    --card2:#0f1840;
+    --text:#eef3ff;
+    --muted:#bcd0ff;
+    --line:rgba(255,255,255,.08);
+    --cyan:#00e5ff;
+    --violet:#8b8cff;
+    --lime:#1be492;
+    --warn:#ffcc66;
+    --radius:18px;
+    --shadow:0 16px 40px rgba(0,0,0,.45), 0 2px 10px rgba(0,0,0,.25);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; color:var(--text); background:
+      radial-gradient(1600px 800px at 85% -10%, rgba(0,229,255,.18), transparent),
+      radial-gradient(1400px 700px at -10% 0%, rgba(139,140,255,.16), transparent),
+      linear-gradient(180deg, var(--bg), var(--bg2) 55%, #081022 100%);
+    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+    line-height:1.55;
+  }
+  a{color:var(--cyan); text-decoration:none}
+  .container{max-width:1200px; margin:0 auto; padding:0 18px}
+  header{
+    position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(10px);
+    background:rgba(7,11,26,.6); border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
+  .brand{display:flex; gap:12px; align-items:center}
+  .logo{
+    width:40px; height:40px; border-radius:14px;
+    background:
+      radial-gradient(60% 60% at 30% 30%, var(--cyan) 0%, transparent 60%),
+      radial-gradient(60% 60% at 70% 70%, var(--violet) 0%, transparent 60%),
+      linear-gradient(135deg, #0cf, #83f);
+    box-shadow:0 0 36px rgba(0,229,255,.35), inset 0 0 22px rgba(0,0,0,.5);
+  }
+  .title{font-family:Montserrat; font-weight:800; letter-spacing:.3px}
+  .navlinks{display:flex; gap:18px; align-items:center}
+  .btn, button{
+    appearance:none; border:1px solid var(--line); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer;
+  }
+  .btn-primary{
+    border-color:rgba(0,229,255,.35);
+    background:linear-gradient(180deg, rgba(0,229,255,.20), rgba(139,140,255,.15));
+  }
+  .hero{padding:36px 0 14px}
+  .hero h1{font-family:Montserrat; font-weight:800; margin:8px 0 10px; font-size: clamp(28px, 5vw, 48px);}
+  .hero p{max-width:900px; color:var(--muted); margin:0}
+  .bar{display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 0}
+  .tag{
+    font-size:12px; padding:6px 10px; border-radius:999px; background:#0c1740;
+    color:#cfe4ff; border:1px solid var(--line)
+  }
+
+  /* Filters */
+  .filters{
+    margin:18px 0 8px; padding:14px; border:1px solid var(--line);
+    border-radius:16px; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    display:grid; gap:12px; grid-template-columns: 1fr; box-shadow:var(--shadow);
+  }
+  @media (min-width:900px){
+    .filters{grid-template-columns: 2fr 1fr 1fr 1fr}
+  }
+  .input, select{
+    width:100%; padding:12px 12px; border-radius:12px; border:1px solid var(--line);
+    background:#0d1738; color:var(--text);
+  }
+
+  /* Grid */
+  .grid{
+    display:grid; gap:18px; padding:20px 0 60px;
+    grid-template-columns: repeat(1, minmax(0,1fr));
+  }
+  @media (min-width:650px){ .grid{grid-template-columns: repeat(2, minmax(0,1fr));} }
+  @media (min-width:1000px){ .grid{grid-template-columns: repeat(3, minmax(0,1fr));} }
+
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    border:1px solid var(--line); border-radius:var(--radius); padding:16px; position:relative; overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .card:before{
+    content:""; position:absolute; inset:-1px; border-radius:inherit;
+    background:linear-gradient(135deg, rgba(0,229,255,.15), rgba(139,140,255,.12) 60%, transparent 100%);
+    mask:linear-gradient(#000,#000) padding-box, linear-gradient(#000,#000);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
+  }
+  .meta{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px}
+  .badge{
+    font-size:12px; padding:4px 8px; border-radius:10px; background:#102252; color:#d6e6ff; border:1px solid var(--line)
+  }
+  .badge.tool{background:rgba(0,229,255,.12); color:#bff7ff; border-color:rgba(0,229,255,.25)}
+  h3{font-family:Montserrat; margin:.25rem 0 .35rem; font-size:1.05rem}
+  .desc{color:#d7def7; font-size:.95rem; margin:.2rem 0 .6rem}
+  details{
+    background:#0f183b; border:1px solid var(--line); border-radius:14px; padding:10px 12px;
+  }
+  summary{cursor:pointer; list-style:none; outline:none; display:flex; align-items:center; gap:8px; color:#dbe6ff; font-weight:600}
+  summary::-webkit-details-marker{display:none}
+  .dot{width:8px; height:8px; border-radius:50%; background:var(--cyan)}
+  pre{
+    margin:10px 0 0; padding:12px; background:#0b1430; border-radius:10px;
+    overflow:auto; white-space:pre-wrap; word-wrap:break-word; color:#eaf2ff; font-size:.92rem;
+    border:1px dashed var(--line)
+  }
+
+  .card-actions{display:flex; gap:10px; margin-top:10px; flex-wrap:wrap}
+  .copy{border-color:rgba(27,228,146,.35); background:linear-gradient(180deg, rgba(27,228,146,.18), rgba(27,228,146,.10))}
+  .top-btn{
+    position:fixed; right:16px; bottom:16px; z-index:60;
+    padding:12px 14px; border-radius:12px; border:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    box-shadow:var(--shadow); display:none;
+  }
+
+  /* Floating Feedback button */
+  .feedback{
+    position:fixed; left:16px; bottom:16px; z-index:60; display:flex; gap:10px; align-items:center;
+    padding:12px 14px; border-radius:999px; border:1px solid rgba(0,229,255,.35);
+    background:linear-gradient(180deg, rgba(0,229,255,.22), rgba(139,140,255,.18));
+    color:var(--text); box-shadow:var(--shadow);
+  }
+  .feedback small{opacity:.9}
+
+  footer{padding:34px 0; color:var(--muted); border-top:1px solid var(--line); text-align:center}
+</style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <div class="title">Prompt Factory</div>
-          <div class="pill">Sample Prompts · Multi-Niche</div>
-        </div>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <div class="title">Prompt Factory</div>
+        <div style="font-size:12px;color:var(--muted)">the factory that builds prompts</div>
       </div>
-      <div class="pill">Factory-built prompts</div>
     </div>
-  </header>
+    <nav class="navlinks">
+      <a href="#catalog" class="btn">Catalog</a>
+      <a href="#bundles" class="btn">Bundles</a>
+      <a href="#about" class="btn">About</a>
+      <a href="#faq" class="btn">FAQ</a>
+      <a href="#catalog" class="btn btn-primary">Browse 200 Prompts</a>
+    </nav>
+  </div>
+</header>
 
-  <section class="hero">
-    <h1>20 Ready-to-Use Prompts, Built Like a Factory</h1>
-    <p>Copy → Paste → Ship. These samples span content, design, dev, research, policy, data, HR, healthcare, finance, legal, e-commerce, and more. Expand a card to view the full prompt.</p>
+<section class="hero">
+  <div class="container">
+    <h1>200 Best Multi-Sector Prompts — Ready to Copy & Ship</h1>
+    <p>Hand-crafted prompt patterns spanning content, design, coding, research, policy, finance, healthcare, education, analytics, e-commerce, real estate, HR, ops, and more. Each card includes sector and recommended AI tool type.</p>
     <div class="bar" aria-label="models">
-      <span class="tag">Works with GPT</span>
-      <span class="tag">Claude</span>
-      <span class="tag">Gemini</span>
-      <span class="tag">Groq</span>
-      <span class="tag ok">India-ready variants</span>
+      <span class="tag">GPT</span><span class="tag">Claude</span><span class="tag">Gemini</span><span class="tag">Groq</span>
+      <span class="tag">Midjourney</span><span class="tag">DALL·E</span><span class="tag">Stable Diffusion</span><span class="tag">Runway</span>
+      <span class="tag">ElevenLabs</span><span class="tag">TTS</span><span class="tag" style="border-color:rgba(27,228,146,.45);color:#dbffef;">India-ready variants</span>
     </div>
-  </section>
+  </div>
+</section>
 
-  <main class="container grid">
-    <!-- 1 Content & SEO -->
-    <article class="card">
+<section class="container filters" id="filters">
+  <input id="search" class="input" placeholder="Search prompts… e.g., policy brief, reels, spreadsheet, RAG, SOP" />
+  <select id="sector">
+    <option value="">All sectors</option>
+  </select>
+  <select id="tool">
+    <option value="">All tools</option>
+    <option>GPT</option><option>Claude</option><option>Gemini</option><option>Groq</option>
+    <option>Midjourney</option><option>DALL·E</option><option>Stable Diffusion</option><option>Runway</option>
+    <option>ElevenLabs</option><option>TTS</option>
+  </select>
+  <select id="sort">
+    <option value="popular">Sort: Featured</option>
+    <option value="az">Sort: A → Z</option>
+    <option value="za">Sort: Z → A</option>
+  </select>
+</section>
+
+<section class="container" id="catalog">
+  <div class="grid" id="grid"><!-- JS injects 200 cards --></div>
+</section>
+
+<section class="container" id="bundles" style="padding:12px 0 40px">
+  <h2 style="font-family:Montserrat;margin:10px 0 8px">Featured Bundles</h2>
+  <p class="desc">Starter bundles that combine the most-used patterns for faster workflows.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="meta"><span class="badge">Creator</span><span class="badge tool">GPT / Gemini</span></div>
+      <h3>Creator Starter (Blog + Reels + Thumbnails)</h3>
+      <p class="desc">Best for solo creators and small teams launching content engines.</p>
+      <div class="card-actions"><button class="btn btn-primary">Preview Bundle</button></div>
+    </div>
+    <div class="card">
+      <div class="meta"><span class="badge">Civic-Tech</span><span class="badge tool">GPT</span></div>
+      <h3>Civic Ops (Policy + RTI + SOP + PPT)</h3>
+      <p class="desc">Rapid drafting kits for gov teams, with India-ready cues.</p>
+      <div class="card-actions"><button class="btn btn-primary">Preview Bundle</button></div>
+    </div>
+    <div class="card">
+      <div class="meta"><span class="badge">Agency</span><span class="badge tool">Claude / GPT</span></div>
+      <h3>Agency Toolkit (Briefs + Proposals + Ads)</h3>
+      <p class="desc">Client-facing templates to move from pitch to delivery.</p>
+      <div class="card-actions"><button class="btn btn-primary">Preview Bundle</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="about" style="padding:12px 0 40px">
+  <h2 style="font-family:Montserrat;margin:10px 0 8px">About Prompt Factory</h2>
+  <p class="desc">We build prompts like products — repeatable, modular, cross-model, and localization-aware. Copy → paste → adapt → ship. Works with GPT, Claude, Gemini, Groq, and top image/video/audio models.</p>
+</section>
+
+<section class="container" id="faq" style="padding:12px 0 60px">
+  <h2 style="font-family:Montserrat;margin:10px 0 8px">FAQ</h2>
+  <details class="card"><summary><span class="dot"></span>Which models are supported?</summary><div style="padding:10px 2px">Text (GPT/Claude/Gemini/Groq), Image (Midjourney/DALL·E/SD), Video (Runway), Audio/TTS (ElevenLabs, TTS).</div></details>
+  <details class="card"><summary><span class="dot"></span>Commercial use?</summary><div style="padding:10px 2px">Yes, prompts are reusable. You’re responsible for output compliance and factual checks.</div></details>
+  <details class="card"><summary><span class="dot"></span>How do I localize for India?</summary><div style="padding:10px 2px">Use our “India-ready” lines or add Hindi/Marathi variants and ₹ pricing cues in the prompt.</div></details>
+</section>
+
+<footer>
+  © Prompt Factory (ANDS Network). All rights reserved.
+</footer>
+
+<!-- Floating Buttons -->
+<a class="feedback" id="feedback" href="#" target="_blank" rel="noopener">
+  <strong>Feedback</strong> <small>Tell us what to add →</small>
+</a>
+<button class="top-btn" id="toTop">↑ Top</button>
+
+<script>
+/* ========= CONFIG ========= */
+const GOOGLE_FORM_URL = "https://forms.gle/your-form-id"; // <- REPLACE with your Google Form link
+
+/* ========= DATA BLUEPRINT =========
+We’ll generate 200 prompts: 20 sectors × ~10 prompts each.
+Each item: {title, sector, tool, desc, prompt}
+*/
+const SECTORS = [
+  "Content & SEO","Social & Reels","Image & Design","Coding & Dev","Research & Analysis",
+  "Civic-Tech & Policy","Education & LMS","Data & Excel","Customer Support","Marketing",
+  "HR & Recruiting","Finance","Healthcare (Non-clinical)","Legal & Compliance","E-commerce",
+  "Real Estate","Travel","Productivity","Sales","Analytics"
+];
+
+const TOOLS_BY_SECTOR = {
+  "Content & SEO":["GPT","Claude","Gemini"],
+  "Social & Reels":["GPT","Gemini"],
+  "Image & Design":["Midjourney","DALL·E","Stable Diffusion"],
+  "Coding & Dev":["GPT","Groq","Claude"],
+  "Research & Analysis":["Claude","GPT","Gemini"],
+  "Civic-Tech & Policy":["GPT"],
+  "Education & LMS":["Gemini","GPT"],
+  "Data & Excel":["GPT","Claude"],
+  "Customer Support":["GPT"],
+  "Marketing":["GPT","Claude"],
+  "HR & Recruiting":["Claude","GPT"],
+  "Finance":["GPT"],
+  "Healthcare (Non-clinical)":["GPT","Gemini"],
+  "Legal & Compliance":["Claude"],
+  "E-commerce":["GPT"],
+  "Real Estate":["GPT"],
+  "Travel":["Gemini","GPT"],
+  "Productivity":["GPT"],
+  "Sales":["Groq","GPT"],
+  "Analytics":["GPT","Claude"]
+};
+
+// Titles + prompt templates per sector (concise but high quality)
+const TEMPLATES = {
+  "Content & SEO":[
+    ["Ranked Blog Blueprint","Role: Senior SEO Editor. Create a 2,500-word blog on “{topic}” for {audience} in {region}. Deliver: CTR title, outline (H2/H3), data hooks w/ sources, FAQ schema, internal links, meta, 3 social captions. India-ready cues."],
+    ["Topic Cluster Map","Generate 5 cluster pages + 20 supporting posts for “{theme}”. Provide search intent, title, angle, and internal link map. Output tables."],
+    ["Programmatic SEO Page","Create a template for {entity} pages: fields, copy blocks, FAQs, and schema. Include localization for ₹."],
+    ["Newsletter Issue Planner","Plan 6 issues on “{niche}”: theme, hero, 3 sections, CTA, and lead magnet."],
+    ["YouTube Description Pro","Write SEO-ready YT description (hook, key moments, tags, CTA) for “{video}”."]
+  ],
+  "Social & Reels":[
+    ["Reel Script Generator","Make 10 reels (20–25s) on “{theme}”: hook, beats, on-screen text, B-roll, CTA, hashtags. Hindi/English caption."],
+    ["Carousel Outline","Outline a 7-slide IG carousel for “{lesson}”: title, 5 teach points, recap, CTA."],
+    ["Tweetstorm Builder","Create a 10-tweet thread on “{angle}”: claim, proof, example, CTA."],
+    ["LinkedIn Post (Credible)","Write a LI post for {persona} on {topic}: story lead, insight, takeaway, CTA."],
+    ["Social Calendar 2 Weeks","Plan a 14-day content calendar for {brand}: post type, caption idea, asset notes."]
+  ],
+  "Image & Design":[
+    ["Photo-Real Portrait Prompt","Art-direction for {subject}: composition, lens, lighting, color, mood, negatives, 3 alt styles."],
+    ["Brand Thumbnail Set","Generate 6 YT thumbnail prompts for {topic}: text overlays, focal layout, color system."],
+    ["Icon Set (Vector)","Describe 10 flat vector icons for {app} in {style}. Provide concise prompts."],
+    ["Poster (Futuristic)","Prompt a poster: headline, layout zones, glow accents, print specs (A3/A4/1080)."],
+    ["3D Product Shot","Generate 4 angles for {product}: camera, materials, reflections, background."]
+  ],
+  "Coding & Dev":[
+    ["Feature RFC → Plan","Input: feature brief. Output: RFC, task breakdown, pseudo-diffs, tests, commits."],
+    ["API Contract Writer","Design a REST/GraphQL API for {module}: endpoints, schemas, errors, examples."],
+    ["Refactor Guide","Propose refactor for {repo}: hotspots, patterns, risks, rollout steps."],
+    ["Testcase Generator","Create unit + integration test plan for {feature} with edge cases."],
+    ["Perf Audit","Checklist to profile {app}: metrics, tools, benchmarks, fixes."]
+  ],
+  "Research & Analysis":[
+    ["Paper Synthesizer","Summarize sources on “{question}”: abstract, evidence table, consensus, gaps, recs."],
+    ["RAPID Brief","Create a RAPID decision brief for {scenario}: roles, options, evidence, decision."],
+    ["Lit Review Outline","Outline a lit review for “{topic}”: sections, seminal works, frameworks."],
+    ["Survey Instrument","Design a survey: constructs, items, scales, pilot plan."],
+    ["Benchmark Matrix","Compare 5 tools for {job}: criteria, scores, notes, pick 2."]
+  ],
+  "Civic-Tech & Policy":[
+    ["Policy Brief (India)","1-page brief on “{issue}” for {dept}: options, costs ₹, timeline, risks, KPIs, Hindi summary."],
+    ["SOP Writer","Draft SOP for {process}: steps, roles, SLAs, escalation."],
+    ["Press Note Draft","Press note: headline, bullets, quotes, do/don’t for public."],
+    ["RTI Response Helper","Structure a factual, polite RTI reply with references."],
+    ["PPT Summary (5)","Create 5-slide deck outline: problem→options→decision→KPIs→timeline."]
+  ],
+  "Education & LMS":[
+    ["Course Sprint (4 Weeks)","Weekly outcomes, lessons, tasks, project brief, rubric, assessment (MCQ+practical)."],
+    ["Lesson Plan (45m)","Objectives, warm-up, teach, practice, assess, homework."],
+    ["Rubric Builder","Rubric for {project}: criteria, levels 1–5, examples."],
+    ["Socratic Tutor","Question sequence to lead {topic} discovery."],
+    ["Worksheet Pack","Create printable exercises for {grade} on {topic}."]
+  ],
+  "Data & Excel":[
+    ["Spreadsheet Analyst","Cleaning steps, formulas, pivots, charts, dashboard plan."],
+    ["SQL Query Pack","Write queries for {schema}: joins, window, CTEs, edge cases."],
+    ["Data Dictionary","Define fields for {dataset}: name, type, desc, validation."],
+    ["KPI Scorecard","Compute KPIs for {team}: formula, target, cadence."],
+    ["ETL Checklist","Plan ETL for {source}: mapping, tests, alerts."]
+  ],
+  "Customer Support":[
+    ["Reply Macros","12 macros (short/long) with empathy, steps, upsell line."],
+    ["Help Center Outline","Structure docs for {product}: top tasks, how-tos, FAQs."],
+    ["On-call Runbook","Incidents playbook: severity, steps, comms templates."],
+    ["NPS→Action","Response templates by score; fix loop."],
+    ["Churn Save","Save scripts for {reason}; offer tree."]
+  ],
+  "Marketing":[
+    ["Landing Copy Matrix","10 headline+subhead pairs for {offer} with JTBD angles."],
+    ["Offer Ladder","Good/Better/Best tiers with value math (₹)."],
+    ["Ad Variant Pack","Google/Meta 15 variants: hooks, assets, CTAs."],
+    ["Email Drip (5)","Welcome series: value, trust, case, offer, close."],
+    ["Positioning Statement","Who, pain, promise, proof, price."]
+  ],
+  "HR & Recruiting":[
+    ["JD→Scorecard","Outcomes, competencies, interview kit, take-home."],
+    ["Onboarding Plan (30/60/90)","Milestones, mentors, artifacts, review points."],
+    ["Policy Handbook (Draft)","Core policies with placeholders; not legal advice."],
+    ["Culture Playbook","Values → behaviors → rituals → anti-patterns."],
+    ["Performance Review","Template questions, ratings, calibration notes."]
+  ],
+  "Finance":[
+    ["CFO Brief","Revenue bridge, GM, Opex, variance, runway, 30-day plan."],
+    ["Board Pack Outline","Slides: KPIs, variances, risks, asks."],
+    ["Pricing Model (₹)","Tier math, sensitivity table, payback."],
+    ["Cashflow Forecast","12-month sheet with drivers and alerts."],
+    ["Unit Economics","CAC, LTV, contribution margin analysis."]
+  ],
+  "Healthcare (Non-clinical)":[
+    ["Clinic SOPs","Front desk, appointment, records, consent, hygiene."],
+    ["Patient Comms","Templates: reminders, instructions, follow-ups."],
+    ["Inventory Control","Logs, reorder points, responsibility matrix."],
+    ["Compliance Checklist","Data privacy, signage, audit prep."],
+    ["Feedback Loop","NPS forms, issue tags, escalation."]
+  ],
+  "Legal & Compliance":[
+    ["Privacy + ToS Draft","Draft with lawful basis, cookies, rights; placeholders."],
+    ["DPA Checklist","Sub-processors, SCCs, retention, DSR flow."],
+    ["Vendor Review","Security questionnaire for {vendor}."],
+    ["Policy Update Note","Change log + comms to users."],
+    ["Incident Report","Template: what, when, scope, mitigation."]
+  ],
+  "E-commerce":[
+    ["PDP Optimizer","Benefits, objections with rebuttals, compare table, FAQ."],
+    ["Abandoned Cart (3)","Emails/SMS with incentives and social proof."],
+    ["UGC Briefs","Ask templates for reviews/photos."],
+    ["Bundle Builder","Cross-sell map and copy for {catalog}."],
+    ["Seasonal Calendar","Key dates, promos, creative angles."]
+  ],
+  "Real Estate":[
+    ["Brochure","Headline, USP, amenities, locality, commute, RERA note."],
+    ["Listing Variants","3 versions: luxury, family, investor."],
+    ["Site Visit Script","Route, talk-track, objection handling."],
+    ["Neighborhood Guide","POIs within 5km; schools, hospitals."],
+    ["Follow-up Sequence","3 emails + 2 WhatsApps with value."]
+  ],
+  "Travel":[
+    ["3-Day Itinerary","Budget & Comfort variants; timings, food picks, pins."],
+    ["City Guide","Top 12 spots, map clusters, tips."],
+    ["Packing List","Weather-aware checklist for {season}."],
+    ["Visa Steps","Docs, timing, pitfalls for {country}."],
+    ["Local Phrasebook","Key phrases with phonetics."]
+  ],
+  "Productivity":[
+    ["Weekly Review Coach","Wins, stuck, metrics, triage, deep work plan."],
+    ["Priority Matrix","Map tasks into Urgent/Important with actions."],
+    ["Meeting Notes","Decision log and action items template."],
+    ["Morning Prep","Plan day with constraints and energy."],
+    ["Focus Sprint","60-min sprint script with checkpoints."]
+  ],
+  "Sales":[
+    ["Outbound 3×3×3","Personas × emails × CTAs; objections handled."],
+    ["Discovery Call","Question tree, mutual action plan."],
+    ["Proposal Writer","Scope, value, price anchors, risks."],
+    ["Case Study","Problem→approach→outcome with metrics."],
+    ["Renewal Save","Playbook by risk reason."]
+  ],
+  "Analytics":[
+    ["A/B Design","Hypothesis, metrics, MDE, sample, guardrails, rule."],
+    ["Dashboard Spec","Who/what/why, metrics, charts, alerts."],
+    ["Causal Plan","DD/IV choice, assumptions, pitfalls."],
+    ["Forecast Sheet","Method pick, error checks, scenario."],
+    ["Cohort Analysis","Define cohorts, metrics, retention."]
+  ]
+};
+
+/* Build 200 prompts: take 10 per sector (loop templates as needed) */
+const ITEMS = [];
+for (const sector of SECTORS){
+  const tmpls = TEMPLATES[sector];
+  const tools = TOOLS_BY_SECTOR[sector];
+  for (let i=0;i<10;i++){
+    const t = tmpls[i % tmpls.length];
+    const tool = tools[i % tools.length];
+    const title = t[0];
+    const prompt = t[1];
+    ITEMS.push({
+      title,
+      sector,
+      tool,
+      desc: quickDesc(sector, title),
+      prompt: decoratePrompt(prompt, sector)
+    });
+  }
+}
+function quickDesc(sector, title){
+  return `${title} pattern crafted for ${sector}. Includes structure, steps, and ready-to-adapt fields.`;
+}
+function decoratePrompt(p, sector){
+  return p + "\nTone: credible, clear. Output markdown. Add India pricing cues (₹) where relevant.";
+}
+
+/* ========= RENDER ========= */
+const grid = document.getElementById('grid');
+const searchEl = document.getElementById('search');
+const sectorEl = document.getElementById('sector');
+const toolEl = document.getElementById('tool');
+const sortEl = document.getElementById('sort');
+const toTop = document.getElementById('toTop');
+const feedback = document.getElementById('feedback');
+feedback.href = GOOGLE_FORM_URL;
+
+const sectorsForSelect = ["", ...SECTORS];
+sectorsForSelect.forEach(s=>{
+  if(!s) return;
+  const opt=document.createElement('option'); opt.value=s; opt.textContent=s; sectorEl.appendChild(opt);
+});
+
+let state = {q:"", sector:"", tool:"", sort:"popular"};
+
+function render(){
+  grid.innerHTML = "";
+  let list = ITEMS.slice();
+
+  // Filter
+  if(state.q){
+    const q = state.q.toLowerCase();
+    list = list.filter(x =>
+      x.title.toLowerCase().includes(q) ||
+      x.sector.toLowerCase().includes(q) ||
+      x.tool.toLowerCase().includes(q) ||
+      x.desc.toLowerCase().includes(q) ||
+      x.prompt.toLowerCase().includes(q)
+    );
+  }
+  if(state.sector) list = list.filter(x => x.sector === state.sector);
+  if(state.tool) list = list.filter(x => x.tool === state.tool);
+
+  // Sort
+  if(state.sort === "az") list.sort((a,b)=> (a.title+a.sector).localeCompare(b.title+b.sector));
+  if(state.sort === "za") list.sort((a,b)=> (b.title+b.sector).localeCompare(a.title+a.sector));
+  // 'popular' keeps original curated order
+
+  // Render
+  const frag = document.createDocumentFragment();
+  list.forEach((x, idx)=>{
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
       <div class="meta">
-        <span class="badge ac">Content & SEO</span><span class="badge">GPT</span><span class="badge">Claude</span>
+        <span class="badge">${escapeHTML(x.sector)}</span>
+        <span class="badge tool">${escapeHTML(x.tool)}</span>
       </div>
-      <h3>Ranked Blog Blueprint (Skyscraper)</h3>
-      <p class="desc">Build a long-form blog with outline, stats hooks, FAQ schema, and internal links.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Role: Senior SEO Editor. Task: Create a 2,200–2,800 word blog on “{topic}” for {audience} in {region}.
-Deliver:
-1) Title (CTR-friendly), 2) TL;DR, 3) H2/H3 outline with estimated word counts,
-4) Data hooks (current stats + sources), 5) Answer People-Also-Ask, 6) Internal link map (anchor → target),
-7) FAQ (structured), 8) Meta title/description, 9) 3 social captions.
-Tone: authoritative, readable. Localize examples for India. Output markdown.
-      </pre></details>
-    </article>
-
-    <!-- 2 Social / Reels -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Social & Reels</span><span class="badge">GPT</span><span class="badge">Gemini</span>
+      <h3>${escapeHTML(x.title)}</h3>
+      <p class="desc">${escapeHTML(x.desc)}</p>
+      <details>
+        <summary><span class="dot"></span>View prompt</summary>
+        <pre>${escapeHTML(x.prompt)}</pre>
+      </details>
+      <div class="card-actions">
+        <button class="btn copy" data-idx="${idx}">Copy Prompt</button>
       </div>
-      <h3>Reel Script Generator (Hook→Value→CTA)</h3>
-      <p class="desc">10× 20–25s scripts with on-screen text and B-roll suggestions.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Create 10 Instagram Reel scripts on “{theme}” for {target}. For each:
-• Hook (7 words), • 3 beats (bullets), • On-screen text, • B-roll ideas, • CTA, • Hashtags (mix broad/niche),
-• Hindi/English bilingual caption variant. Keep each script 20–25 seconds. Output a table.
-      </pre></details>
-    </article>
+    `;
+    frag.appendChild(card);
+  });
+  grid.appendChild(frag);
 
-    <!-- 3 Design / Image -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Image & Design</span><span class="badge">GPT</span><span class="badge">Gemini</span>
-      </div>
-      <h3>Image Prompt Factory: Photo-Real + 3D</h3>
-      <p class="desc">Universal image prompt builder with style, lens, lighting, and composition.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-You are an Art Director. Build a master image prompt for “{subject}” in {style}.
-Include: composition, focal length/lens, lighting, textures, color palette, mood, camera angle, negative prompts, seed variants,
-and 4 alt styles (photo-real, cinematic 3D, vector flat, editorial). Output 4 prompts (short 200 chars, detailed 400 chars each).
-      </pre></details>
-    </article>
+  // Bind copy buttons
+  grid.querySelectorAll('.copy').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      const i = Number(e.currentTarget.dataset.idx);
+      const text = list[i].prompt;
+      navigator.clipboard.writeText(text).then(()=>{
+        e.currentTarget.textContent = "Copied ✓";
+        setTimeout(()=> e.currentTarget.textContent = "Copy Prompt", 1200);
+      });
+    });
+  });
+}
 
-    <!-- 4 Coding / Dev -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Coding & Dev</span><span class="badge">GPT</span><span class="badge">Groq</span>
-      </div>
-      <h3>Feature RFC → Commit Plan</h3>
-      <p class="desc">Turn a feature request into tasks, file diffs, tests, and commit messages.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Input: Feature brief + repo structure.
-Output:
-1) RFC (goals, non-goals, API), 2) Task breakdown with estimates, 3) File-level changes (pseudo-diffs),
-4) Unit/integration test plan, 5) Commit series with messages, 6) Rollback notes. Format in markdown.
-      </pre></details>
-    </article>
+function escapeHTML(s){return s.replace(/[&<>"']/g, m=>({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"}[m]))}
 
-    <!-- 5 Research -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Research & Analysis</span><span class="badge">Claude</span><span class="badge">GPT</span>
-      </div>
-      <h3>Paper Synthesizer (RAG Outline)</h3>
-      <p class="desc">Summarize 5–8 sources into a decision-ready brief with citations.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Given sources on “{question}”, produce: 1) 5-sentence abstract, 2) Evidence table (claim → source),
-3) Consensus vs disagreements, 4) Gaps/next steps, 5) Exec recommendation. Cite inline (Author, Year).
-      </pre></details>
-    </article>
+searchEl.addEventListener('input', ()=>{state.q = searchEl.value.trim(); render();});
+sectorEl.addEventListener('change', ()=>{state.sector = sectorEl.value; render();});
+toolEl.addEventListener('change', ()=>{state.tool = toolEl.value; render();});
+sortEl.addEventListener('change', ()=>{state.sort = sortEl.value; render();});
 
-    <!-- 6 Civic-Tech / Policy -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Civic-Tech & Policy</span><span class="badge">GPT</span>
-      </div>
-      <h3>Policy Brief Generator (India-Ready)</h3>
-      <p class="desc">1-page brief with problem, options, impact, and implementation steps.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Create a 1-page brief on “{issue}” for {department}. Include: problem statement, stakeholders, 3 policy options (pros/cons),
-cost & timeline (₹), risks/mitigations, KPIs, and communication plan. Add Hindi summary. Output as a tight memo.
-      </pre></details>
-    </article>
+window.addEventListener('scroll', ()=>{
+  if (window.scrollY > 600){ toTop.style.display = 'block'; }
+  else { toTop.style.display = 'none'; }
+});
+toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-    <!-- 7 Education -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Education & LMS</span><span class="badge">Gemini</span>
-      </div>
-      <h3>Course Sprint Builder (4 Weeks)</h3>
-      <p class="desc">Design a 4-week micro-course with lessons, projects, rubrics.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-For topic “{topic}”, create a 4-week plan: weekly outcomes, 3 lessons/week, practice tasks, project brief,
-rubric, and assessment (MCQ + practical). Provide teacher notes and learner checklist. Output tables.
-      </pre></details>
-    </article>
-
-    <!-- 8 Data / Excel -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Data & Excel</span><span class="badge">GPT</span><span class="badge">Claude</span>
-      </div>
-      <h3>Spreadsheet Analyst (Formulas + Steps)</h3>
-      <p class="desc">Explain formulas, build dashboards, and list exact click paths.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-You are a Spreadsheet Coach. For dataset “{describe}”, provide:
-• Cleaning steps, • Required formulas (exact syntax), • Pivot setup, • Charts, • KPI cards,
-• A one-page dashboard layout, • Export instructions. Output step-by-step checklist.
-      </pre></details>
-    </article>
-
-    <!-- 9 Customer Support -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Customer Support</span><span class="badge">GPT</span>
-      </div>
-      <h3>Reply Macro Factory (Tone-Safe)</h3>
-      <p class="desc">Generate macros for refunds, delays, bugs, and upsell moments.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Create 12 canned responses for {product}. For each scenario: short + long version, empathy line,
-solution steps, link placeholders, and optional upsell line. Provide tags and trigger keywords.
-      </pre></details>
-    </article>
-
-    <!-- 10 Marketing -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Marketing</span><span class="badge">GPT</span>
-      </div>
-      <h3>Landing Copy (Headline Matrix)</h3>
-      <p class="desc">10 headline×subhead pairs using Jobs-to-Be-Done angles.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Generate 10 landing headline+subhead pairs for {offer}. Cover: pain-killer, speed, proof, risk-reversal,
-category-name, social proof, price-anchor, and India pricing cues (₹). Output a 2-column table.
-      </pre></details>
-    </article>
-
-    <!-- 11 HR / Recruiting -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">HR & Recruiting</span><span class="badge">Claude</span>
-      </div>
-      <h3>JD → Scorecard → Interview Kit</h3>
-      <p class="desc">Turn a JD into outcomes, rubrics, questions, and take-home task.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Input: JD text. Output: role outcomes (90-day), competency scorecard (levels 1–5), 10 behavioral questions,
-5 technical questions, and a 90-minute take-home task with rubric. Provide a candidate feedback template.
-      </pre></details>
-    </article>
-
-    <!-- 12 Finance -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Finance</span><span class="badge">GPT</span>
-      </div>
-      <h3>Finance Brief (CFO-Style)</h3>
-      <p class="desc">Monthly snapshot: revenue bridge, variance, cash runway, actions.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Produce a CFO brief for {company}. Include: revenue bridge, GM %, Opex split, variance vs budget, cash runway,
-top 3 risks, top 3 levers, and a 30-day action plan. Output a one-page memo + table.
-      </pre></details>
-    </article>
-
-    <!-- 13 Healthcare -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Healthcare</span><span class="badge">GPT</span><span class="badge">Gemini</span>
-      </div>
-      <h3>Clinic SOP Writer (Non-clinical)</h3>
-      <p class="desc">Front-desk, appointment, consent, hygiene, and escalation playbooks.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Draft non-clinical SOPs for a {specialty} clinic: front desk, triage, appointment flow, records, consent,
-sanitization, billing, and complaints. Add checklists and signage text. Output clean numbered SOPs.
-      </pre></details>
-    </article>
-
-    <!-- 14 Legal / Compliance -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Legal & Compliance</span><span class="badge">Claude</span>
-      </div>
-      <h3>Policy Pack: Privacy + ToS (Draft)</h3>
-      <p class="desc">Draft base policies with placeholders; non-substitutive for legal advice.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Create draft Privacy Policy + Terms for {app}. Include data categories, lawful basis, user rights,
-cookies, payment processors, India data residency note, and contact. Mark all placeholders clearly. Not legal advice.
-      </pre></details>
-    </article>
-
-    <!-- 15 E-commerce -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">E-commerce</span><span class="badge">GPT</span>
-      </div>
-      <h3>PDP Optimizer (Benefits & Objections)</h3>
-      <p class="desc">Improve product pages with benefits bullets and objection handling.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Given a product, output: 1) 5 benefit bullets (feature→benefit), 2) 5 objections with rebuttals,
-3) Comparison table vs 2 competitors, 4) FAQ, 5) Cross-sell ideas. Tone: concise, persuasive.
-      </pre></details>
-    </article>
-
-    <!-- 16 Real Estate -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Real Estate</span><span class="badge">GPT</span>
-      </div>
-      <h3>Property Brochure in 10 Minutes</h3>
-      <p class="desc">Listing copy, amenity grid, local area points, compliance notes.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Create a brochure for {property}. Include: headline, USP bullets, amenity grid, floor plan notes,
-neighborhood highlights (5km radius), commute times, financing options, and RERA disclaimers (if India).
-      </pre></details>
-    </article>
-
-    <!-- 17 Travel -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Travel</span><span class="badge">Gemini</span>
-      </div>
-      <h3>3-Day Itinerary (Budget/Comfort)</h3>
-      <p class="desc">Two modes: budget and comfort; maps and local food picks.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Plan a 3-day itinerary for {city}. Provide Budget and Comfort variants with timings, travel time,
-tickets, neighborhood clustering, and local food picks. Add Google Maps pins list. Output tables.
-      </pre></details>
-    </article>
-
-    <!-- 18 Productivity -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Productivity</span><span class="badge">GPT</span>
-      </div>
-      <h3>Weekly Review Coach</h3>
-      <p class="desc">Reflect, set priorities, schedule deep work blocks.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Guide me through a weekly review. Steps: wins, stuck points, metrics, backlog triage, next-week top 3,
-calendar audit, deep-work blocks, and anti-goals. Output a plan and a Monday checklist.
-      </pre></details>
-    </article>
-
-    <!-- 19 Sales -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Sales</span><span class="badge">Groq</span><span class="badge">GPT</span>
-      </div>
-      <h3>Outbound Sequence (3×3×3)</h3>
-      <p class="desc">3 personas × 3 emails × 3 CTA options with value props.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-For {ICP}, create a 3-touch sequence (email+LI DM). Provide 3 variants per step with objections handled,
-CTA options (demo, audit, case study), and a personalization token library. Keep under 120 words per email.
-      </pre></details>
-    </article>
-
-    <!-- 20 Analytics -->
-    <article class="card">
-      <div class="meta">
-        <span class="badge ac">Analytics</span><span class="badge">GPT</span>
-      </div>
-      <h3>Experiment Design (A/B → Decision)</h3>
-      <p class="desc">Hypothesis, sample size, metrics, guardrails, and decision rule.</p>
-      <details><summary><span class="dot"></span>View prompt</summary><pre>
-Design an A/B test for {goal}. Include: hypothesis, primary/secondary metrics, MDE, sample size calc,
-segment strategy, guardrails, duration, and a pre-declared decision rule. Output a one-page plan.
-      </pre></details>
-    </article>
-  </main>
-
-  <footer>
-    © Prompt Factory — the factory that builds prompts. Made for fast copy-paste execution.
-  </footer>
+// Initial render
+render();
+</script>
 </body>
 </html>
