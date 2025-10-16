@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prompt Factory — Sample Prompts Gallery</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b132b; --panel:#111a33; --card:#121c3a; --muted:#b7c2e1;
+      --text:#eef3ff; --accent:#00e5ff; --accent2:#8b8cff; --ok:#1be492;
+      --chip:#1a264d; --shadow:0 12px 30px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.2);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:radial-gradient(1200px 600px at 80% -20%, rgba(0,229,255,.18), transparent),
+                 radial-gradient(1000px 500px at -10% 0%, rgba(139,140,255,.18), transparent),
+                 var(--bg);
+      color:var(--text); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+      line-height:1.5;
+    }
+    header{
+      position:sticky; top:0; z-index:10; backdrop-filter:saturate(140%) blur(8px);
+      background:rgba(11,19,43,.6); border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .container{max-width:1200px; margin:0 auto; padding:16px 20px}
+    .nav{display:flex; align-items:center; justify-content:space-between}
+    .brand{display:flex; gap:10px; align-items:center}
+    .logo{
+      width:36px;height:36px; border-radius:12px; background:
+        radial-gradient(60% 60% at 30% 30%, var(--accent) 0%, transparent 60%),
+        radial-gradient(60% 60% at 70% 70%, var(--accent2) 0%, transparent 60%),
+        linear-gradient(135deg, #0cf, #83f);
+      box-shadow:0 0 30px rgba(0,229,255,.3), inset 0 0 20px rgba(0,0,0,.4);
+    }
+    .title{font-family:Montserrat, Inter; font-weight:800; letter-spacing:.3px}
+    .pill{
+      font-size:12px; padding:6px 10px; border-radius:999px; background:var(--chip); color:var(--muted); border:1px solid rgba(255,255,255,.06)
+    }
+    .hero{
+      padding:32px 20px 12px; text-align:center;
+    }
+    .hero h1{font-family:Montserrat; font-weight:800; margin:6px 0 8px; font-size: clamp(28px, 5vw, 44px);}
+    .hero p{margin:0 auto; max-width:880px; color:var(--muted)}
+    .grid{
+      display:grid; gap:18px; padding:24px 20px 64px;
+      grid-template-columns: repeat(1, minmax(0,1fr));
+    }
+    @media (min-width:640px){ .grid{grid-template-columns: repeat(2, minmax(0,1fr));} }
+    @media (min-width:960px){ .grid{grid-template-columns: repeat(3, minmax(0,1fr));} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+    }
+    .card:before{
+      content:""; position:absolute; inset:-1px; border-radius:inherit;
+      background:linear-gradient(135deg, rgba(0,229,255,.16), rgba(139,140,255,.12) 60%, transparent 100%);
+      mask:linear-gradient(#000,#000) padding-box, linear-gradient(#000,#000);
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
+    }
+    .card h3{font-family:Montserrat; margin:.2rem 0 .3rem; font-size:1.05rem}
+    .meta{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px}
+    .badge{font-size:12px; padding:4px 8px; border-radius:10px; background:var(--chip); color:var(--muted); border:1px solid rgba(255,255,255,.06)}
+    .badge.ac{background:rgba(0,229,255,.12); color:#aef7ff; border-color:rgba(0,229,255,.25)}
+    .desc{color:#d7def7; font-size:.95rem; margin:.25rem 0 .6rem}
+    details{
+      background:#0f1834; border:1px solid rgba(255,255,255,.08);
+      border-radius:14px; padding:10px 12px;
+    }
+    summary{cursor:pointer; list-style:none; outline:none}
+    summary::-webkit-details-marker{display:none}
+    summary{display:flex; align-items:center; gap:8px; color:#dbe6ff; font-weight:600}
+    summary .dot{width:8px; height:8px; border-radius:50%; background:var(--accent)}
+    pre{
+      margin:10px 0 0; padding:12px; background:#0b1430; border-radius:10px;
+      overflow:auto; white-space:pre-wrap; word-wrap:break-word; color:#eaf2ff; font-size:.92rem;
+      border:1px dashed rgba(255,255,255,.08)
+    }
+    footer{padding:32px 20px; text-align:center; color:var(--muted); border-top:1px solid rgba(255,255,255,.06)}
+    .bar{
+      display:flex; gap:8px; flex-wrap:wrap; justify-content:center; padding:12px 0 4px
+    }
+    .tag{font-size:11.5px; padding:5px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.08); color:#cfe4ff; background:#0f1a37}
+    .ok{color:var(--ok)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title">Prompt Factory</div>
+          <div class="pill">Sample Prompts · Multi-Niche</div>
+        </div>
+      </div>
+      <div class="pill">Factory-built prompts</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>20 Ready-to-Use Prompts, Built Like a Factory</h1>
+    <p>Copy → Paste → Ship. These samples span content, design, dev, research, policy, data, HR, healthcare, finance, legal, e-commerce, and more. Expand a card to view the full prompt.</p>
+    <div class="bar" aria-label="models">
+      <span class="tag">Works with GPT</span>
+      <span class="tag">Claude</span>
+      <span class="tag">Gemini</span>
+      <span class="tag">Groq</span>
+      <span class="tag ok">India-ready variants</span>
+    </div>
+  </section>
+
+  <main class="container grid">
+    <!-- 1 Content & SEO -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Content & SEO</span><span class="badge">GPT</span><span class="badge">Claude</span>
+      </div>
+      <h3>Ranked Blog Blueprint (Skyscraper)</h3>
+      <p class="desc">Build a long-form blog with outline, stats hooks, FAQ schema, and internal links.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Role: Senior SEO Editor. Task: Create a 2,200–2,800 word blog on “{topic}” for {audience} in {region}.
+Deliver:
+1) Title (CTR-friendly), 2) TL;DR, 3) H2/H3 outline with estimated word counts,
+4) Data hooks (current stats + sources), 5) Answer People-Also-Ask, 6) Internal link map (anchor → target),
+7) FAQ (structured), 8) Meta title/description, 9) 3 social captions.
+Tone: authoritative, readable. Localize examples for India. Output markdown.
+      </pre></details>
+    </article>
+
+    <!-- 2 Social / Reels -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Social & Reels</span><span class="badge">GPT</span><span class="badge">Gemini</span>
+      </div>
+      <h3>Reel Script Generator (Hook→Value→CTA)</h3>
+      <p class="desc">10× 20–25s scripts with on-screen text and B-roll suggestions.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Create 10 Instagram Reel scripts on “{theme}” for {target}. For each:
+• Hook (7 words), • 3 beats (bullets), • On-screen text, • B-roll ideas, • CTA, • Hashtags (mix broad/niche),
+• Hindi/English bilingual caption variant. Keep each script 20–25 seconds. Output a table.
+      </pre></details>
+    </article>
+
+    <!-- 3 Design / Image -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Image & Design</span><span class="badge">GPT</span><span class="badge">Gemini</span>
+      </div>
+      <h3>Image Prompt Factory: Photo-Real + 3D</h3>
+      <p class="desc">Universal image prompt builder with style, lens, lighting, and composition.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+You are an Art Director. Build a master image prompt for “{subject}” in {style}.
+Include: composition, focal length/lens, lighting, textures, color palette, mood, camera angle, negative prompts, seed variants,
+and 4 alt styles (photo-real, cinematic 3D, vector flat, editorial). Output 4 prompts (short 200 chars, detailed 400 chars each).
+      </pre></details>
+    </article>
+
+    <!-- 4 Coding / Dev -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Coding & Dev</span><span class="badge">GPT</span><span class="badge">Groq</span>
+      </div>
+      <h3>Feature RFC → Commit Plan</h3>
+      <p class="desc">Turn a feature request into tasks, file diffs, tests, and commit messages.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Input: Feature brief + repo structure.
+Output:
+1) RFC (goals, non-goals, API), 2) Task breakdown with estimates, 3) File-level changes (pseudo-diffs),
+4) Unit/integration test plan, 5) Commit series with messages, 6) Rollback notes. Format in markdown.
+      </pre></details>
+    </article>
+
+    <!-- 5 Research -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Research & Analysis</span><span class="badge">Claude</span><span class="badge">GPT</span>
+      </div>
+      <h3>Paper Synthesizer (RAG Outline)</h3>
+      <p class="desc">Summarize 5–8 sources into a decision-ready brief with citations.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Given sources on “{question}”, produce: 1) 5-sentence abstract, 2) Evidence table (claim → source),
+3) Consensus vs disagreements, 4) Gaps/next steps, 5) Exec recommendation. Cite inline (Author, Year).
+      </pre></details>
+    </article>
+
+    <!-- 6 Civic-Tech / Policy -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Civic-Tech & Policy</span><span class="badge">GPT</span>
+      </div>
+      <h3>Policy Brief Generator (India-Ready)</h3>
+      <p class="desc">1-page brief with problem, options, impact, and implementation steps.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Create a 1-page brief on “{issue}” for {department}. Include: problem statement, stakeholders, 3 policy options (pros/cons),
+cost & timeline (₹), risks/mitigations, KPIs, and communication plan. Add Hindi summary. Output as a tight memo.
+      </pre></details>
+    </article>
+
+    <!-- 7 Education -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Education & LMS</span><span class="badge">Gemini</span>
+      </div>
+      <h3>Course Sprint Builder (4 Weeks)</h3>
+      <p class="desc">Design a 4-week micro-course with lessons, projects, rubrics.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+For topic “{topic}”, create a 4-week plan: weekly outcomes, 3 lessons/week, practice tasks, project brief,
+rubric, and assessment (MCQ + practical). Provide teacher notes and learner checklist. Output tables.
+      </pre></details>
+    </article>
+
+    <!-- 8 Data / Excel -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Data & Excel</span><span class="badge">GPT</span><span class="badge">Claude</span>
+      </div>
+      <h3>Spreadsheet Analyst (Formulas + Steps)</h3>
+      <p class="desc">Explain formulas, build dashboards, and list exact click paths.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+You are a Spreadsheet Coach. For dataset “{describe}”, provide:
+• Cleaning steps, • Required formulas (exact syntax), • Pivot setup, • Charts, • KPI cards,
+• A one-page dashboard layout, • Export instructions. Output step-by-step checklist.
+      </pre></details>
+    </article>
+
+    <!-- 9 Customer Support -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Customer Support</span><span class="badge">GPT</span>
+      </div>
+      <h3>Reply Macro Factory (Tone-Safe)</h3>
+      <p class="desc">Generate macros for refunds, delays, bugs, and upsell moments.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Create 12 canned responses for {product}. For each scenario: short + long version, empathy line,
+solution steps, link placeholders, and optional upsell line. Provide tags and trigger keywords.
+      </pre></details>
+    </article>
+
+    <!-- 10 Marketing -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Marketing</span><span class="badge">GPT</span>
+      </div>
+      <h3>Landing Copy (Headline Matrix)</h3>
+      <p class="desc">10 headline×subhead pairs using Jobs-to-Be-Done angles.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Generate 10 landing headline+subhead pairs for {offer}. Cover: pain-killer, speed, proof, risk-reversal,
+category-name, social proof, price-anchor, and India pricing cues (₹). Output a 2-column table.
+      </pre></details>
+    </article>
+
+    <!-- 11 HR / Recruiting -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">HR & Recruiting</span><span class="badge">Claude</span>
+      </div>
+      <h3>JD → Scorecard → Interview Kit</h3>
+      <p class="desc">Turn a JD into outcomes, rubrics, questions, and take-home task.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Input: JD text. Output: role outcomes (90-day), competency scorecard (levels 1–5), 10 behavioral questions,
+5 technical questions, and a 90-minute take-home task with rubric. Provide a candidate feedback template.
+      </pre></details>
+    </article>
+
+    <!-- 12 Finance -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Finance</span><span class="badge">GPT</span>
+      </div>
+      <h3>Finance Brief (CFO-Style)</h3>
+      <p class="desc">Monthly snapshot: revenue bridge, variance, cash runway, actions.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Produce a CFO brief for {company}. Include: revenue bridge, GM %, Opex split, variance vs budget, cash runway,
+top 3 risks, top 3 levers, and a 30-day action plan. Output a one-page memo + table.
+      </pre></details>
+    </article>
+
+    <!-- 13 Healthcare -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Healthcare</span><span class="badge">GPT</span><span class="badge">Gemini</span>
+      </div>
+      <h3>Clinic SOP Writer (Non-clinical)</h3>
+      <p class="desc">Front-desk, appointment, consent, hygiene, and escalation playbooks.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Draft non-clinical SOPs for a {specialty} clinic: front desk, triage, appointment flow, records, consent,
+sanitization, billing, and complaints. Add checklists and signage text. Output clean numbered SOPs.
+      </pre></details>
+    </article>
+
+    <!-- 14 Legal / Compliance -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Legal & Compliance</span><span class="badge">Claude</span>
+      </div>
+      <h3>Policy Pack: Privacy + ToS (Draft)</h3>
+      <p class="desc">Draft base policies with placeholders; non-substitutive for legal advice.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Create draft Privacy Policy + Terms for {app}. Include data categories, lawful basis, user rights,
+cookies, payment processors, India data residency note, and contact. Mark all placeholders clearly. Not legal advice.
+      </pre></details>
+    </article>
+
+    <!-- 15 E-commerce -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">E-commerce</span><span class="badge">GPT</span>
+      </div>
+      <h3>PDP Optimizer (Benefits & Objections)</h3>
+      <p class="desc">Improve product pages with benefits bullets and objection handling.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Given a product, output: 1) 5 benefit bullets (feature→benefit), 2) 5 objections with rebuttals,
+3) Comparison table vs 2 competitors, 4) FAQ, 5) Cross-sell ideas. Tone: concise, persuasive.
+      </pre></details>
+    </article>
+
+    <!-- 16 Real Estate -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Real Estate</span><span class="badge">GPT</span>
+      </div>
+      <h3>Property Brochure in 10 Minutes</h3>
+      <p class="desc">Listing copy, amenity grid, local area points, compliance notes.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Create a brochure for {property}. Include: headline, USP bullets, amenity grid, floor plan notes,
+neighborhood highlights (5km radius), commute times, financing options, and RERA disclaimers (if India).
+      </pre></details>
+    </article>
+
+    <!-- 17 Travel -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Travel</span><span class="badge">Gemini</span>
+      </div>
+      <h3>3-Day Itinerary (Budget/Comfort)</h3>
+      <p class="desc">Two modes: budget and comfort; maps and local food picks.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Plan a 3-day itinerary for {city}. Provide Budget and Comfort variants with timings, travel time,
+tickets, neighborhood clustering, and local food picks. Add Google Maps pins list. Output tables.
+      </pre></details>
+    </article>
+
+    <!-- 18 Productivity -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Productivity</span><span class="badge">GPT</span>
+      </div>
+      <h3>Weekly Review Coach</h3>
+      <p class="desc">Reflect, set priorities, schedule deep work blocks.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Guide me through a weekly review. Steps: wins, stuck points, metrics, backlog triage, next-week top 3,
+calendar audit, deep-work blocks, and anti-goals. Output a plan and a Monday checklist.
+      </pre></details>
+    </article>
+
+    <!-- 19 Sales -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Sales</span><span class="badge">Groq</span><span class="badge">GPT</span>
+      </div>
+      <h3>Outbound Sequence (3×3×3)</h3>
+      <p class="desc">3 personas × 3 emails × 3 CTA options with value props.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+For {ICP}, create a 3-touch sequence (email+LI DM). Provide 3 variants per step with objections handled,
+CTA options (demo, audit, case study), and a personalization token library. Keep under 120 words per email.
+      </pre></details>
+    </article>
+
+    <!-- 20 Analytics -->
+    <article class="card">
+      <div class="meta">
+        <span class="badge ac">Analytics</span><span class="badge">GPT</span>
+      </div>
+      <h3>Experiment Design (A/B → Decision)</h3>
+      <p class="desc">Hypothesis, sample size, metrics, guardrails, and decision rule.</p>
+      <details><summary><span class="dot"></span>View prompt</summary><pre>
+Design an A/B test for {goal}. Include: hypothesis, primary/secondary metrics, MDE, sample size calc,
+segment strategy, guardrails, duration, and a pre-declared decision rule. Output a one-page plan.
+      </pre></details>
+    </article>
+  </main>
+
+  <footer>
+    © Prompt Factory — the factory that builds prompts. Made for fast copy-paste execution.
+  </footer>
+</body>
+</html>
